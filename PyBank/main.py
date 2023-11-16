@@ -8,7 +8,7 @@ csvpath = r"PyBank\Resources\budget_data.csv"
 # Initialize variables to store analysis results
 total_months = 0
 net_total = 0
-previous_profit_loss = 0
+previous_profit = 0
 changes = []
 greatest_increase = {"date": "", "amount": float("-inf")}
 greatest_decrease = {"date": "", "amount": float("inf")}
@@ -23,16 +23,16 @@ with open(csvpath, newline="") as csvfile:
     for row in csvreader:
         # Extract date and profit/loss from the row
         date = row[0]
-        profit_loss = int(row[1])
+        profit = int(row[1])
 
         # Calculate total number of months
         total_months += 1
 
         # Calculate net total amount of profit/loss
-        net_total += profit_loss
+        net_total += profit
 
         # Calculate change in profit/loss
-        change = profit_loss - previous_profit_loss
+        change = profit - previous_profit
 
         # Update greatest increase in profits
         if change > greatest_increase["amount"]:
@@ -44,13 +44,13 @@ with open(csvpath, newline="") as csvfile:
             greatest_decrease["date"] = date
             greatest_decrease["amount"] = change
 
-        # Update previous profit/loss for the next iteration
-        previous_profit_loss = profit_loss
+        # Update previous profit for the next iteration
+        previous_profit = profit
 
         # Save the change in the list
         changes.append(change)
 
-# Calculate average change in profit/loss
+# Calculate average change in profit
 average_change = sum(changes)/len(changes)
 
 # Display the analysis results
